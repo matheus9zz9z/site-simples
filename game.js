@@ -11,6 +11,7 @@ const GAME_SPEED = 5; // Velocidade reduzida
 
 // Detecção de dispositivo móvel
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+const MOBILE_SPEED_MULTIPLIER = 0.7; // Reduz a velocidade em 30% no mobile
 
 // Sprite frames for mouse animation
 const mouseSprites = {
@@ -64,7 +65,7 @@ const mouse = {
 
 // Traps
 let traps = [];
-const TRAP_INTERVAL = isMobile ? 2000 : 1500; // Mais tempo entre obstáculos em mobile
+const TRAP_INTERVAL = isMobile ? 2500 : 1500; // Ainda mais tempo entre obstáculos em mobile
 let lastTrapTime = 0;
 
 // Game Controls
@@ -204,8 +205,8 @@ function drawTrap(trap) {
 }
 
 function createTrap() {
-    // Em dispositivos móveis, cria as armadilhas mais longe
-    const startX = isMobile ? CANVAS_WIDTH + 100 : CANVAS_WIDTH;
+    // Em dispositivos móveis, cria as armadilhas muito mais longe
+    const startX = isMobile ? CANVAS_WIDTH + 300 : CANVAS_WIDTH;
     
     traps.push({
         x: startX,
@@ -222,8 +223,10 @@ function updateTraps() {
         lastTrapTime = currentTime;
     }
 
+    const currentSpeed = isMobile ? GAME_SPEED * MOBILE_SPEED_MULTIPLIER : GAME_SPEED;
+
     traps = traps.filter(trap => {
-        trap.x -= GAME_SPEED;
+        trap.x -= currentSpeed;
         return trap.x > -TRAP_WIDTH;
     });
 }
@@ -265,12 +268,50 @@ function updateCat() {
     if (cat.x < 0) cat.x = 0;
 }
 
+function drawBackground() {
+    // Parede
+    ctx.fillStyle = '#D4C5B2'; // Cor bege clara para a parede
+    ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT - 40);
+
+    // Rodapé
+    ctx.fillStyle = '#8B7355'; // Cor marrom para o rodapé
+    ctx.fillRect(0, CANVAS_HEIGHT - 40, CANVAS_WIDTH, 10);
+
+    // Piso
+    ctx.fillStyle = '#6E4C1E'; // Cor marrom escura para o piso de madeira
+    ctx.fillRect(0, CANVAS_HEIGHT - 30, CANVAS_WIDTH, 30);
+
+    // Padrão do piso
+    for (let i = 0; i < CANVAS_WIDTH; i += 50) {
+        ctx.fillStyle = '#5C4019'; // Linha mais escura para simular tábuas
+        ctx.fillRect(i, CANVAS_HEIGHT - 30, 2, 30);
+    }
+
+    // Alguns detalhes na parede (quadros simplificados)
+    ctx.fillStyle = '#8B7355';
+    ctx.strokeStyle = '#6E4C1E';
+    ctx.lineWidth = 2;
+
+    // Quadro 1
+    ctx.fillRect(100, 30, 60, 40);
+    ctx.strokeRect(95, 25, 70, 50);
+
+    // Quadro 2
+    ctx.fillRect(600, 50, 40, 60);
+    ctx.strokeRect(595, 45, 50, 70);
+
+    // Tomada na parede
+    ctx.fillStyle = '#999';
+    ctx.fillRect(300, CANVAS_HEIGHT - 80, 20, 20);
+}
+
 function gameLoop() {
     if (!gameStarted || gameOver) return;
 
-    // Clear canvas
+    // Clear canvas e desenha o fundo
     ctx.fillStyle = '#000';
     ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    drawBackground();
 
     // Update mouse position
     mouse.velocityY += GRAVITY;
