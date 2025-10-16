@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Gatos Bagunçeiros</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <header>
+        <h1>🐱 Gatos Bagunçeiros 🐾</h1>
+        <p>O guia definitivo sobre nossos amigos felinos que adoram fazer bagunça!</p>
+        <nav>
+            <ul class="menu">
+                <li><a href="#bagunca">Bagunça</a></li>
+                <li><a href="#cuidados">Cuidados</a></li>
+                <li><a href="#doentes">Gatos Doentes</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="destaque" id="bagunca">
+            <h2>As Travessuras Mais Comuns</h2>
+            <ul>
+                <li>Derrubar objetos da mesa</li>
+                <li>Escalar cortinas</li>
+                <li>Rasgar papel higiênico</li>
+                <li>Dormir em cima do teclado</li>
+                <li>Arranhar o sofá</li>
+                <li>Roubar comida escondido</li>
+                <li>Se esconder em lugares inusitados</li>
+                <li>Caçar insetos pela casa</li>
+            </ul>
+        </section>
+
+        <section class="galeria">
+            <h2>Por Que Gatos São Tão Bagunceiros?</h2>
+            <div class="razoes">
+                <article>
+                    <h3>Curiosidade Natural</h3>
+                    <p>Gatos são naturalmente curiosos e precisam explorar seu ambiente. Eles adoram investigar cada canto da casa e descobrir novos lugares para brincar ou se esconder.</p>
+                </article>
+                <article>
+                    <h3>Instinto Caçador</h3>
+                    <p>Objetos em movimento ativam seu instinto de caça. Por isso, eles perseguem brinquedos, insetos e até mesmo seus próprios rabos!</p>
+                </article>
+                <article>
+                    <h3>Marcação de Território</h3>
+                    <p>Arranhar objetos é uma forma de marcar território e manter suas garras saudáveis.</p>
+                </article>
+                <article>
+                    <h3>Energia Acumulada</h3>
+                    <p>Gatos precisam gastar energia diariamente. Se não forem estimulados, podem se tornar ainda mais bagunceiros!</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="dicas" id="cuidados">
+            <h2>Como Lidar com um Gato Bagunceiro</h2>
+            <ol>
+                <li>Providencie brinquedos apropriados e variados</li>
+                <li>Tenha arranhadores e prateleiras para escalar</li>
+                <li>Mantenha objetos frágeis guardados</li>
+                <li>Estabeleça uma rotina de brincadeiras</li>
+                <li>Use sprays anti-arranhão em móveis importantes</li>
+                <li>Recompense comportamentos positivos</li>
+                <li>Evite punições físicas, prefira redirecionar a atenção</li>
+            </ol>
+        </section>
+
+        <section class="doentes" id="doentes">
+            <h2>Cuidados com Gatos Doentes</h2>
+            <div class="cuidados-doentes">
+                <article>
+                    <h3>Sinais de que o gato está doente</h3>
+                    <ul>
+                        <li>Perda de apetite</li>
+                        <li>Letargia ou cansaço excessivo</li>
+                        <li>Vômitos ou diarreia</li>
+                        <li>Espirros, tosse ou dificuldade para respirar</li>
+                        <li>Alterações no comportamento</li>
+                        <li>Feridas ou lesões na pele</li>
+                    </ul>
+                </article>
+                <article>
+                    <h3>O que fazer se notar sintomas</h3>
+                    <ol>
+                        <li>Leve o gato ao veterinário imediatamente</li>
+                        <li>Mantenha o animal confortável e aquecido</li>
+                        <li>Ofereça água fresca e comida leve</li>
+                        <li>Evite automedicação</li>
+                        <li>Siga rigorosamente as orientações do veterinário</li>
+                    </ol>
+                </article>
+                <article>
+                    <h3>Prevenção de doenças</h3>
+                    <ul>
+                        <li>Mantenha as vacinas em dia</li>
+                        <li>Faça visitas regulares ao veterinário</li>
+                        <li>Higienize os ambientes e objetos do gato</li>
+                        <li>Ofereça alimentação de qualidade</li>
+                        <li>Evite contato com animais desconhecidos</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <section class="interativo">
+        <h2>Interaja com a Página</h2>
+        <div class="contador-container">
+            <button id="botao-patinha">Deixe sua patinha! 🐾 <span id="contador">0</span></button>
+        </div>
+        <div id="gatos-animacao" class="hidden"></div>
+        <audio id="miauAudio">
+            <source src="Audios/Miau.mp3" type="audio/mp3">
+        </audio>
+        <audio id="gatoBravoAudio">
+            <source src="Audios/Gatobravo.mp3" type="audio/mp3">
+        </audio>
+    </section>
+
+        <section class="game-section">
+            <h2>Mini Game: Rato Fugitivo</h2>
+            <div class="game-container">
+                <canvas id="gameCanvas"></canvas>
+                <div class="game-controls">
+                    <p>Pontuação: <span id="score">0</span></p>
+                    <p>Recorde: <span id="highscore">0</span></p>
+                    <button id="startGame">Iniciar Jogo</button>
+                    <p class="game-instructions">Pressione ESPAÇO ou toque na tela para pular!</p>
+                </div>
+            </div>
+        </section>
+
+    <footer>
+        <p>🐱 Criado com amor por amantes de gatos bagunceiros 🐾</p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>

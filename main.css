@@ -1,0 +1,244 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+header {
+    background: linear-gradient(90deg, #2d2d2d 0%, #1a1a1a 100%);
+    color: #fff;
+    text-align: center;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #333;
+}    .menu {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        list-style: none;
+        margin-top: 1rem;
+    }
+    .menu li a {
+        color: #ffd700;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        transition: background 0.2s;
+    }
+    .menu li a:hover {
+        background: #23243a;
+        color: #fff;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 8px #0008;
+    }
+
+    main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+section {
+    background-color: #2d2d2d;
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #333;
+}
+
+h2 {
+    color: #ff9966;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+ul, ol {
+    padding-left: 2rem;
+    color: #f0f0f0;
+}
+
+li {
+    margin-bottom: 0.8rem;
+    line-height: 1.8;
+}    .razoes {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+
+article {
+    background-color: #333;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #444;
+    transition: transform 0.3s ease;
+}
+
+article:hover {
+    transform: translateY(-2px);
+}
+
+h3 {
+    color: #ff9966;
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+#botao-patinha {
+    background: linear-gradient(145deg, #ff9966, #ff7f50);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 153, 102, 0.2);
+}
+
+#botao-patinha:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 153, 102, 0.3);
+}
+
+p {
+    color: #f0f0f0;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}    .cuidados-doentes {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 1.5rem;
+    }
+
+    .doentes article {
+        background-color: #23243a;
+        border: 2px solid #ff4f4f99;
+    }
+
+    .doentes h2 {
+        color: #ff4f4f;
+    }
+
+    footer {
+        text-align: center;
+        padding: 2rem;
+        background: linear-gradient(90deg, #23243a 60%, #2d2f4a 100%);
+        color: #ffd700;
+        margin-top: 2rem;
+        box-shadow: 0 -2px 8px #0006;
+    }
+
+    @media (max-width: 768px) {
+        header {
+            padding: 1rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        section {
+            padding: 1rem;
+        }
+
+        .razoes, .cuidados-doentes {
+            grid-template-columns: 1fr;
+        }
+    }
+
+#gato-container {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #fff5f5;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#gato-container:hover {
+    background-color: #ffdddd;
+}
+
+.shake {
+    animation: shake 0.5s;
+}
+
+
+#gatos-animacao {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2000;
+    pointer-events: none;
+}
+
+.gato-emoji {
+    position: absolute;
+    font-size: 3rem;
+    animation: gato-passando 1.2s linear;
+    will-change: transform, opacity;
+}
+
+@keyframes gato-passando {
+    0% {
+        left: -10vw;
+        opacity: 0.7;
+        transform: scale(1) rotate(-10deg);
+    }
+    10% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        left: 110vw;
+        opacity: 0.7;
+        transform: scale(1.1) rotate(10deg);
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    section {
+        padding: 1rem;
+    }
+
+    .razoes {
+        grid-template-columns: 1fr;
+    }
+}
