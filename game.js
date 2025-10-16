@@ -8,6 +8,7 @@ const TRAP_HEIGHT = 40;
 const GRAVITY = 0.6;
 const JUMP_FORCE = -10;
 const GAME_SPEED = 5; // Velocidade reduzida
+const BASE_TRAP_INTERVAL = 1500; // Intervalo base entre obstáculos
 
 // Detecção de dispositivo móvel
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -35,12 +36,6 @@ const cat = {
     currentFrame: 0,
     frameCount: 0
 };
-const TRAP_WIDTH = 20;
-const TRAP_HEIGHT = 40;
-const GRAVITY = 0.6;
-const JUMP_FORCE = -10;
-const GAME_SPEED = 6;
-
 // Game Setup
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
@@ -65,7 +60,6 @@ const mouse = {
 
 // Traps
 let traps = [];
-const TRAP_INTERVAL = isMobile ? 2500 : 1500; // Ainda mais tempo entre obstáculos em mobile
 let lastTrapTime = 0;
 
 // Game Controls
@@ -218,7 +212,9 @@ function createTrap() {
 
 function updateTraps() {
     const currentTime = Date.now();
-    if (currentTime - lastTrapTime > TRAP_INTERVAL) {
+    const interval = isMobile ? 2500 : BASE_TRAP_INTERVAL;
+    
+    if (currentTime - lastTrapTime > interval) {
         createTrap();
         lastTrapTime = currentTime;
     }
@@ -309,8 +305,7 @@ function gameLoop() {
     if (!gameStarted || gameOver) return;
 
     // Clear canvas e desenha o fundo
-    ctx.fillStyle = '#000';
-    ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     drawBackground();
 
     // Update mouse position
@@ -357,9 +352,11 @@ document.getElementById('startGame').addEventListener('click', () => {
     traps = [];
     mouse.y = CANVAS_HEIGHT - MOUSE_HEIGHT;
     mouse.velocityY = 0;
+    cat.x = 0;
     document.getElementById('score').textContent = '0';
     document.getElementById('highscore').textContent = highScore;
     document.getElementById('startGame').style.display = 'none';
+    lastTrapTime = Date.now();
     gameLoop();
 });
 
