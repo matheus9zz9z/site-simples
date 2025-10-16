@@ -21,6 +21,17 @@
     height: 200px;
     image-rendering: pixelated;
     border: 2px solid #333;
+    touch-action: none; /* Previne comportamentos de toque indesejados */
+}
+
+@media (max-width: 768px) {
+    #gameCanvas {
+        height: 180px; /* Altura um pouco menor em telas pequenas */
+    }
+    
+    .game-container {
+        padding: 0.5rem; /* Menos padding em telas pequenas */
+    }
 }
 
 .game-controls {

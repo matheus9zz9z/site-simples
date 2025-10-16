@@ -3,6 +3,14 @@ const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 200;
 const MOUSE_WIDTH = 30;
 const MOUSE_HEIGHT = 30;
+const TRAP_WIDTH = 20;
+const TRAP_HEIGHT = 40;
+const GRAVITY = 0.6;
+const JUMP_FORCE = -10;
+const GAME_SPEED = 5; // Velocidade reduzida
+
+// Detecção de dispositivo móvel
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
 // Sprite frames for mouse animation
 const mouseSprites = {
@@ -56,7 +64,7 @@ const mouse = {
 
 // Traps
 let traps = [];
-const TRAP_INTERVAL = 1500; // Time between traps in milliseconds
+const TRAP_INTERVAL = isMobile ? 2000 : 1500; // Mais tempo entre obstáculos em mobile
 let lastTrapTime = 0;
 
 // Game Controls
@@ -196,8 +204,11 @@ function drawTrap(trap) {
 }
 
 function createTrap() {
+    // Em dispositivos móveis, cria as armadilhas mais longe
+    const startX = isMobile ? CANVAS_WIDTH + 100 : CANVAS_WIDTH;
+    
     traps.push({
-        x: CANVAS_WIDTH,
+        x: startX,
         y: CANVAS_HEIGHT - TRAP_HEIGHT,
         width: TRAP_WIDTH,
         height: TRAP_HEIGHT
