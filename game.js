@@ -10,6 +10,16 @@ const JUMP_FORCE = -10;
 const GAME_SPEED = 5; // Velocidade reduzida
 const BASE_TRAP_INTERVAL = 1500; // Intervalo base entre obstáculos
 
+// Background Configuration
+const BACKGROUND_SPEED = 1; // Velocidade do fundo
+const FLOOR_SPEED = 2; // Velocidade do piso
+const DECORATION_SPEED = 3; // Velocidade dos elementos decorativos
+
+// Background State
+let bgOffset = 0;
+let floorOffset = 0;
+let decorationOffset = 0;
+
 // Detecção de dispositivo móvel
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 const MOBILE_SPEED_MULTIPLIER = 0.7; // Reduz a velocidade em 30% no mobile
@@ -265,40 +275,61 @@ function updateCat() {
 }
 
 function drawBackground() {
-    // Parede
-    ctx.fillStyle = '#D4C5B2'; // Cor bege clara para a parede
+    if (gameStarted && !gameOver) {
+        bgOffset = (bgOffset + BACKGROUND_SPEED) % 200;
+        floorOffset = (floorOffset + FLOOR_SPEED) % 50;
+        decorationOffset = (decorationOffset + DECORATION_SPEED) % CANVAS_WIDTH;
+    }
+
+    // Parede com padrão de movimento suave
+    ctx.fillStyle = '#D4C5B2';
     ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT - 40);
+    
+    // Padrão sutil na parede
+    ctx.fillStyle = '#C4B5A2';
+    for (let i = -bgOffset; i < CANVAS_WIDTH; i += 200) {
+        ctx.fillRect(i, 0, 100, CANVAS_HEIGHT - 40);
+    }
 
-    // Rodapé
-    ctx.fillStyle = '#8B7355'; // Cor marrom para o rodapé
-    ctx.fillRect(0, CANVAS_HEIGHT - 40, CANVAS_WIDTH, 10);
+    // Rodapé com movimento
+    ctx.fillStyle = '#8B7355';
+    for (let i = -decorationOffset; i < CANVAS_WIDTH; i += 100) {
+        ctx.fillRect(i, CANVAS_HEIGHT - 40, 80, 10);
+    }
 
-    // Piso
-    ctx.fillStyle = '#6E4C1E'; // Cor marrom escura para o piso de madeira
+    // Piso com movimento
+    ctx.fillStyle = '#6E4C1E';
     ctx.fillRect(0, CANVAS_HEIGHT - 30, CANVAS_WIDTH, 30);
 
-    // Padrão do piso
-    for (let i = 0; i < CANVAS_WIDTH; i += 50) {
-        ctx.fillStyle = '#5C4019'; // Linha mais escura para simular tábuas
+    // Padrão do piso com movimento
+    ctx.fillStyle = '#5C4019';
+    for (let i = -floorOffset; i < CANVAS_WIDTH + 50; i += 50) {
         ctx.fillRect(i, CANVAS_HEIGHT - 30, 2, 30);
     }
 
-    // Alguns detalhes na parede (quadros simplificados)
+    // Elementos decorativos com movimento parallax
     ctx.fillStyle = '#8B7355';
     ctx.strokeStyle = '#6E4C1E';
     ctx.lineWidth = 2;
 
+    // Quadros movendo-se lentamente
+    const quadrosOffset = decorationOffset * 0.5;
+    
     // Quadro 1
-    ctx.fillRect(100, 30, 60, 40);
-    ctx.strokeRect(95, 25, 70, 50);
+    const quadro1X = (100 - quadrosOffset) % CANVAS_WIDTH;
+    ctx.fillRect(quadro1X, 30, 60, 40);
+    ctx.strokeRect(quadro1X - 5, 25, 70, 50);
 
     // Quadro 2
-    ctx.fillRect(600, 50, 40, 60);
-    ctx.strokeRect(595, 45, 50, 70);
+    const quadro2X = (600 - quadrosOffset) % CANVAS_WIDTH;
+    ctx.fillRect(quadro2X, 50, 40, 60);
+    ctx.strokeRect(quadro2X - 5, 45, 50, 70);
 
-    // Tomada na parede
+    // Múltiplas tomadas na parede com movimento
     ctx.fillStyle = '#999';
-    ctx.fillRect(300, CANVAS_HEIGHT - 80, 20, 20);
+    for (let i = -decorationOffset; i < CANVAS_WIDTH; i += 400) {
+        ctx.fillRect(i + 300, CANVAS_HEIGHT - 80, 20, 20);
+    }
 }
 
 function gameLoop() {
@@ -353,6 +384,9 @@ document.getElementById('startGame').addEventListener('click', () => {
     mouse.y = CANVAS_HEIGHT - MOUSE_HEIGHT;
     mouse.velocityY = 0;
     cat.x = 0;
+    bgOffset = 0;
+    floorOffset = 0;
+    decorationOffset = 0;
     document.getElementById('score').textContent = '0';
     document.getElementById('highscore').textContent = highScore;
     document.getElementById('startGame').style.display = 'none';
