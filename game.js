@@ -362,3 +362,8 @@ document.getElementById('startGame').addEventListener('click', () => {
 
 // Initial setup
 document.getElementById('highscore').textContent = highScore;
+
+// Draw initial state
+drawBackground();
+drawMouse();
+drawCat();
